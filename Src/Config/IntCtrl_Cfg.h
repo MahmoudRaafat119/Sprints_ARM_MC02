@@ -36,8 +36,8 @@
 */
 
 
-#define NVIC_GROUPING_SYSTEM             NVIC_GROUPING_SYSTEM_XXY
-#define NVIC_ACTIVATED_INT_SIZE  5
+#define NVIC_GROUPING_SYSTEM             NVIC_GROUPING_SYSTEM_XXX
+#define NVIC_ACTIVATED_INT_SIZE  3
 
 /**********************************************************************************************************************
  *  GLOBAL FUNCTION MACROS

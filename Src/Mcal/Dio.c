@@ -69,7 +69,7 @@ Dio_LevelType Dio_ReadChannel ( Dio_ChannelType ChannelId )
 	PortBaseAddr = Port_BaseAddr[portIndex];
 	
 	gpioDataOffset = 4 * (1<<pinIndex);
-	level = (*((uint32*)(PortBaseAddr+gpioDataOffset))) >> pinIndex;
+	level = (*((uint32*)(PortBaseAddr+gpioDataOffset)))>>pinIndex;
 	
 	return level;
 }
@@ -151,7 +151,7 @@ void Dio_WritePort ( Dio_PortType PortId, Dio_PortLevelType Level )
 *******************************************************************************/
 Dio_LevelType Dio_FlipChannel(Dio_ChannelType ChannelId)
 {
-	Dio_LevelType levelType;
+	Dio_LevelType levelType=0;
 	if (Dio_ReadChannel(ChannelId) == STD_LOW)
 	{
 		Dio_WriteChannel(ChannelId,STD_HIGH);

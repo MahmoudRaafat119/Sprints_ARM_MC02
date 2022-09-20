@@ -3,8 +3,8 @@
 #define BIT_MATH_H_
 
 
-#define SetBit(REG,BIT)		REG |= (1<<BIT)
-#define ClrBit(REG,BIT) 	REG &= (~(1<<BIT))
+#define SET_BIT(REG,BIT)		REG |= (1<<BIT)
+#define CLR_BIT(REG,BIT) 	REG &= (~(1<<BIT))
 #define TogBit(REG,BIT) 	REG ^= (1<<BIT)
 #define GetBit(REG,BIT) 	((REG>>BIT)&(0x01))
 

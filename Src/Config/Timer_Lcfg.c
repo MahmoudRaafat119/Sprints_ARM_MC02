@@ -15,6 +15,7 @@
 #include "Std_Types.h"
 #include "Timer_Cfg.h"
 #include "Timer.h"
+#include "DIO.h"
 
 /**********************************************************************************************************************
 *  LOCAL MACROS CONSTANT\FUNCTION
@@ -34,6 +35,8 @@ const Gpt_ConfigType Gpt_Config[GPT_ACTIVATED_CHANNELS_SIZE] =
 	{GPT_16_32_BIT_TIMER0,				500,										0xFF,												GPT_CH_MODE_ONESHOT,			Gpt_NotificationFn},
 	{GPT_32_64_BIT_WIDE_TIMER1,		1000,						 				0xFFFF,											GPT_CH_MODE_CONTINUOUS,   0}
 };
+
+uint8 counter;
 /**********************************************************************************************************************
  *  LOCAL FUNCTION PROTOTYPES
  *********************************************************************************************************************/
@@ -45,7 +48,22 @@ const Gpt_ConfigType Gpt_Config[GPT_ACTIVATED_CHANNELS_SIZE] =
 /**********************************************************************************************************************
  *  GLOBAL FUNCTIONS
  *********************************************************************************************************************/
-
+void Gpt_NotificationFn(void)
+{
+	
+	counter++;
+	if(counter == 4){
+		Dio_WriteChannel(Channel_F1	,	STD_LOW);
+	}
+	else if (counter ==10)
+	{
+		Dio_WriteChannel(Channel_F1	,	STD_HIGH);
+		counter=0;
+	}
+		
+	
+	
+}
 /**********************************************************************************************************************
  *  END OF FILE: FileName.c
  *********************************************************************************************************************/

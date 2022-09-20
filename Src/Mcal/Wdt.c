@@ -13,7 +13,7 @@
  *  INCLUDES
  *********************************************************************************************************************/
 #include "Std_Types.h"
-#include "platform_Types.h" 
+#include "Platform_Types.h" 
 #include "Wdt.h"
 #include "Mcu_hw.h"
 #include "Wdt_Cfg.h"

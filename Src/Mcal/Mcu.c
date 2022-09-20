@@ -31,7 +31,7 @@ static Mcu_StatusType Mcu_Status = MCU_NOT_INITIALIZED;
 /**********************************************************************************************************************
  *  GLOBAL DATA
  *********************************************************************************************************************/
-
+volatile uint32 GlobalSystemClock;
 /**********************************************************************************************************************
  *  LOCAL FUNCTION PROTOTYPES
  *********************************************************************************************************************/
@@ -71,7 +71,7 @@ static Mcu_StatusType Mcu_Status = MCU_NOT_INITIALIZED;
 *******************************************************************************/
  Mcu_RawResetType Mcu_GetResetRawValue( void )
  {
-   	Mcu_RawResetType resetCause = RESC;
+  Mcu_RawResetType resetCause = RESC;
 	RESC = 0x0;
 	return resetCause;
  }
@@ -85,6 +85,8 @@ static Mcu_StatusType Mcu_Status = MCU_NOT_INITIALIZED;
 * \Parameters (out): None                                                      
 * \Return value:   : None
 *******************************************************************************/
+#if (MCU_PERFORM_RESET_API==STD_ON)
+
  void Mcu_PerformReset(void)
  {
 	/*Clear Reset Cause Register */
@@ -92,6 +94,7 @@ static Mcu_StatusType Mcu_Status = MCU_NOT_INITIALIZED;
 	/*Perform Reset */
 	APINT = (APINT_VECTKEY<<APINT_VECTKEY_FIELD_OFFSET) | (1<<SYSRESREQ_FIELD_OFFSET);
  }
+#endif/*MCU_PERFORM_RESET_API==STD_ON*/
 
  /******************************************************************************
 * \Syntax          : Std_ReturnType Mcu_InitClock( Mcu_ClockType ClockSetting);                                  
@@ -123,6 +126,7 @@ static Mcu_StatusType Mcu_Status = MCU_NOT_INITIALIZED;
 	    {
 	    	/*Enable PLL*/
 	    	RCC.B.PWRDN = 0x0;
+				xTest = (MCU_PLL_OUTPUT_DIV2 / (Mcu_ConfigPtr[ClockSetting].Freq_KHz/1000))-1;	
 	    	RCC.B.SYSDIV = (MCU_PLL_OUTPUT_DIV2 / (Mcu_ConfigPtr[ClockSetting].Freq_KHz/1000))-1;	
 	    }
 	    else
@@ -149,9 +153,10 @@ static Mcu_StatusType Mcu_Status = MCU_NOT_INITIALIZED;
 	    	    	locSourceFreq_MHz = 4;
 	    	    	
 	    	    }
-				RCC.B.SYSDIV = (locSourceFreq_MHz / (Mcu_ConfigPtr[ClockSetting].Freq_KHz/1000))-1;	
+						RCC.B.SYSDIV = (locSourceFreq_MHz / (Mcu_ConfigPtr[ClockSetting].Freq_KHz/1000))-1;	
 	    	}	
 	    }
+					GlobalSystemClock = Mcu_ConfigPtr[ClockSetting].Freq_KHz;
         ret = E_OK;
     }
 	return ret;

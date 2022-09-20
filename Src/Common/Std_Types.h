@@ -27,8 +27,8 @@
 #define NULL_PTR       ((void *)0)
 #define NULL					  0
 
-# define STD_HIGH     1u /* Physical state 5V or 3.3V */
-# define STD_LOW      0u /* Physical state 0V */
+//# define STD_HIGH     1u /* Physical state 5V or 3.3V */
+//# define STD_LOW      0u /* Physical state 0V */
 
 # define STD_ACTIVE   1u /* Logical state active */
 # define STD_IDLE     0u /* Logical state idle */
@@ -43,6 +43,8 @@
 typedef uint8 Std_ReturnType;
 #define E_OK          0u
 #define E_NOT_OK      1u
+
+
 
 /**********************************************************************************************************************
  *  GLOBAL DATA PROTOTYPES

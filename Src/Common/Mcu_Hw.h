@@ -54,11 +54,11 @@ typedef union
 /**************************************
 *   SYSTEM CONTROL REGISTRES
 ***************************************/
-#define SYSCONTROL_BASE_ADDRESS           0x400FE000
+#define SYSCTR_BASE_ADDRESS              0x400FE000
 #define RESC                            (*((volatile uint32*)0x400FE05C))
-#define RCC                             (*((volatile RCC_TAG*)0x400FE060))
-#define RCC2                            (*((volatile RCC2_TAG*)0x400FE070))
-#define PLLSTAT                         (*((volatile uint32*)0x400FE168))
+#define RCGCGPIO_OFFSET                  0x608
+#define RCGCGPIO                        (*((volatile uint32*)(SYSCTR_BASE_ADDRESS+RCGCGPIO_OFFSET)))
+
 
 typedef struct
 {
@@ -86,6 +86,12 @@ typedef union
 
 }RCC_TAG;
 
+#define RCC                             (*((volatile RCC_TAG*)0x400FE060))
+#define RCC2                            (*((volatile RCC2_TAG*)0x400FE070))
+#define PLLSTAT                         (*((volatile uint32*)0x400FE168))
+#define SYSCTR_RCG_BASE_ADDR   					 0x400FE600
+
+	
 typedef struct
 {
 	uint32              :4;
@@ -110,24 +116,44 @@ typedef union
 	Mcu_StrBF2 B;
 
 }RCC2_TAG;
-#define SYSCONTROL_RCG_BASE_ADDR    0x400FE600
 
-#define RCGCGPIO_OFFSET                  0x608
-#define RCGCGPIO                        (*((volatile uint32*)(SYSCONTROL_RCG_BASE_ADDR+RCGCGPIO_OFFSET))
+#define SYSCONTROL_RCG_BASE_ADDR    0x400FE000
+#define RCGCTIMER                               *((volatile uint32*)( 0x400FE000 +0x604))
+#define RCGCWTIMER                              *((volatile uint32*)( 0x400FE000 +0x65C))
 
 
-#define SYSCTR_RCG_BASE_ADDR    0x400FE600
 /**************************************
 *   GPIO REGISTRE
 ***************************************/
 #define GPIO_APB_BASE_ADDRESS_A          0x40004000
-#define GPIO_APB_BASE_ADDRESS_B          0x40005000
+#define GPIOA_AHB_BASE_MASK                       0x40058000
+#define GPIO_APB_BASE_ADDRESS_B           0x40005000
+#define GPIOB_AHB_BASE_MASK                           0x40059000    
 #define GPIO_APB_BASE_ADDRESS_C          0x40006000
+#define GPIOC_AHB_BASE_MASK                           0x4005A000   
 #define GPIO_APB_BASE_ADDRESS_D          0x40007000
+#define GPIOD_AHB_BASE_MASK                           0x4005B000   
 #define GPIO_APB_BASE_ADDRESS_E          0x40024000
+#define GPIOE_AHB_BASE_MASK                           0x4005C000   
 #define GPIO_APB_BASE_ADDRESS_F          0x40025000
+#define GPIOF_AHB_BASE_MASK                         0x4005D000  
 
 #define GPIODIR_OFFSET			0x400
+#define GPIOAFSEL_OFFSET		0x420						
+#define GPIOLOCK_OFFSET			0x520
+#define GPIOCR_OFFSET				0x524
+#define GPIOPCTL_OFFSET			0x52C
+#define GPIODR2R_OFFSET     0x500
+#define GPIODR4R_OFFSET     0x504
+#define GPIODR8R_OFFSET     0x508
+#define GPIOPUR_OFFSET      0x510
+#define GPIOPDR_OFFSET      0x514
+#define GPIOODR_OFFSET      0x50C
+#define GPIOIS_OFFSET				0x404
+#define GPIOIBE_OFFSET			0x408
+#define GPIOIEV_OFFSET			0x40c
+#define GPIOIM_OFFSET				0x410
+#define GPIORIS_OFFSET			0x414
 /**************************************
 *   GPT REGISTRE
 ***************************************/
@@ -159,7 +185,7 @@ typedef union
 #define WDT_1_BASE_ADDRESS			0x40001000
 
 #define WDTLOAD_OFFSET					0x000
-#define WDTCTL_OFFSET					0x008
+#define WDTCTL_OFFSET						0x008
 #define WDTLOCK_OFFSET					0xC00
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
@@ -173,7 +199,24 @@ typedef union
  *********************************************************************************************************************/
 #define GET_HWREG(BaseAddr,RegOffset)      *((volatile uint32*)(BaseAddr+RegOffset))
 
-#define GPIODIR(BaseAddr)                  *((volatile uint32*)BaseAddr+GPIODIR_OFFSET) 
+#define GPIODIR(BaseAddr)           				*((volatile uint32*)(BaseAddr+GPIODIR_OFFSET))
+#define GPIOAFSEL(BaseAddr)									*((volatile uint32*)(BaseAddr+GPIOAFSEL_OFFSET))	
+#define GPIOLOCK(BaseAddr)									*((volatile uint32*)(BaseAddr+GPIOLOCK_OFFSET))		
+#define GPIOCR(BaseAddr)										*((volatile uint32*)(BaseAddr+GPIOCR_OFFSET))
+#define GPIOPCTL(BaseAddr)									*((volatile uint32*)(BaseAddr+GPIOPCTL_OFFSET))
+#define GPIODR2R(BaseAddr)									*((volatile uint32*)(BaseAddr+GPIODR2R_OFFSET))
+#define GPIODR4R(BaseAddr)									*((volatile uint32*)(BaseAddr+GPIODR4R_OFFSET))
+#define GPIODR8R(BaseAddr)									*((volatile uint32*)(BaseAddr+GPIODR8R_OFFSET))
+#define GPIOPUR(BaseAddr)					  				*((volatile uint32*)(BaseAddr+GPIOPUR_OFFSET))
+#define GPIOPDR(BaseAddr)					  				*((volatile uint32*)(BaseAddr+GPIOPDR_OFFSET))
+#define GPIOODR(BaseAddr)					  				*((volatile uint32*)(BaseAddr+GPIOODR_OFFSET))
+#define GPIOIS(BaseAddr)					  				*((volatile uint32*)(BaseAddr+GPIOIS_OFFSET))
+#define GPIOIBE(BaseAddr)					  				*((volatile uint32*)(BaseAddr+GPIOIBE_OFFSET))
+#define GPIOIEV(BaseAddr)					  				*((volatile uint32*)(BaseAddr+GPIOIEV_OFFSET))
+#define GPIOIM(BaseAddr)					  				*((volatile uint32*)(BaseAddr+GPIOIM_OFFSET))
+#define GPIORIS(BaseAddr)					  				*((volatile uint32*)(BaseAddr+GPIORIS_OFFSET))	
+
+
 #define GPTMCFG(BaseAddr)										*((volatile uint32*)(BaseAddr+GPTMCFG_OFFSET))
 #define GPTMTAMR(BaseAddr)									*((volatile uint32*)(BaseAddr+GPTMTAMR_OFFSET))
 #define GPTMTBMR(BaseAddr)									*((volatile uint32*)(BaseAddr+GPTMTBMR_OFFSET))

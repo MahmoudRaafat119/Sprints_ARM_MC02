@@ -13,8 +13,10 @@
 /**********************************************************************************************************************
  * INCLUDES
  *********************************************************************************************************************/
-#include "platform_Types.h"
-#include "mcu_hw.h"
+#include "Platform_Types.h"
+#include "Std_Types.h"
+#include "Mcu_Hw.h"
+
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
@@ -97,7 +99,9 @@ typedef enum{
 	STD_HIGH
 }Dio_LevelType;
 
-typedef uint8 Dio_PortLevelType;
+//typedef uint32 Dio_LevelType;
+
+typedef uint32 Dio_PortLevelType;
 
 typedef uint32 Dio_ChannelGroupMskType;
 typedef uint8  Dio_ChannelGroupOffsetType;
