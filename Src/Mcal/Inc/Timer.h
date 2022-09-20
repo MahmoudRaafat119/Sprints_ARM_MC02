@@ -16,6 +16,7 @@
  *********************************************************************************************************************/
 #include "Platform_Types.h"
 #include "Std_Types.h"
+#include "Timer_Cfg.h"
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
@@ -195,6 +196,21 @@ void Gpt_StopTimer( Gpt_ChannelType Channel );
 *                                    E_NOT_OK                                  
 *******************************************************************************/
 void Gpt_Notification_Channel ( void);
+
+
+/******************************************************************************
+ * \Syntax          : void GPT_Attach(GPT_Notification CallBack,GPT_ValueType Value)
+ * \Description     : This Function is used to make user only attach the callback function + Value of time in milliseconds 
+ * 						if he wants to work with only one timer in his application
+ *
+ * \Sync\Async      : Synchronous
+ * \Reentrancy      : Non Reentrant
+ * \Parameters (in) : CallBack >> Callback Function that will be excuted when Timer interrupt is activated
+ * 					  ValueinMs	>> Value of Desired time to pass in milliseconds
+ * \Parameters (out): None
+ * \Return value:   : None
+ *******************************************************************************/
+void GPT_Attach(GptNotification Copy_GPTCallBack,Gpt_ValueType Copy_GPTValueinMs);
  
 #endif  /* TIMER_H */
 

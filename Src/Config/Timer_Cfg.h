@@ -19,10 +19,10 @@
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
-#define	GPT_PREDEF_TIMER_1US_16BIT_STATUS    	ENABLE
+#define	GPT_PREDEF_TIMER_1US_16BIT_STATUS    	DISABLE
 #define	GPT_PREDEF_TIMER_1US_24BIT_STATUS 		DISABLE
 #define	GPT_PREDEF_TIMER_1US_32BIT_STATUS 		DISABLE
-#define	GPT_PREDEF_TIMER_100US_32BIT_STATUS 	ENABLE
+#define	GPT_PREDEF_TIMER_100US_32BIT_STATUS 	DISABLE
 
 
 

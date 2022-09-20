@@ -215,7 +215,8 @@ typedef union
 #define GPIOIEV(BaseAddr)					  				*((volatile uint32*)(BaseAddr+GPIOIEV_OFFSET))
 #define GPIOIM(BaseAddr)					  				*((volatile uint32*)(BaseAddr+GPIOIM_OFFSET))
 #define GPIORIS(BaseAddr)					  				*((volatile uint32*)(BaseAddr+GPIORIS_OFFSET))	
-
+#define GPIO_GPIOMIS(BaseAddr)                            *((volatile uint32*)(BaseAddr+0x418))
+#define GPIO_GPIOICR(BaseAddr)                            *((volatile uint32*)(BaseAddr+0x41C))
 
 #define GPTMCFG(BaseAddr)										*((volatile uint32*)(BaseAddr+GPTMCFG_OFFSET))
 #define GPTMTAMR(BaseAddr)									*((volatile uint32*)(BaseAddr+GPTMTAMR_OFFSET))

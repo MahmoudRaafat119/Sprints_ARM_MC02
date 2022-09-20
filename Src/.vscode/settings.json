@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "timer.h": "c",
+        "platform_types.h": "c",
+        "timer_cfg.h": "c",
+        "std_types.h": "c",
+        "systick.h": "c"
+    }
+}

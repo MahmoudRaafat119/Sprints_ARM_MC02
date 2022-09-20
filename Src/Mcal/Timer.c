@@ -26,7 +26,7 @@
 
 #define TACDIR	4
 
-#define PREDEF_TIMER					GPT_32_64_BIT_WIDE_TIMER4
+#define PREDEF_TIMER					GPT_16_32_BIT_TIMER1
 /**********************************************************************************************************************
  *  LOCAL DATA 
  *********************************************************************************************************************/
@@ -118,6 +118,7 @@ void Gpt_Init( const Gpt_ConfigType* ConfigPtr)
 	
 		
 /* Predef timers */
+	/*
 	gptPredefTimer_1USPrescale = GlobalSystemClock / 1000;
 	for(i=2;;i*=2)
 	{
@@ -150,7 +151,7 @@ void Gpt_Init( const Gpt_ConfigType* ConfigPtr)
 			break;
 		}
 	}	
-	
+*/	
 #if GPT_PREDEF_TIMER_1US_16BIT_STATUS == Enable
 	gptBaseAddress = Gpt_BaseAddress[PREDEF_TIMER];
 	GPTMCTL(gptBaseAddress) =	0;
@@ -428,7 +429,7 @@ void Gpt_StartTimer( Gpt_ChannelType Channel, Gpt_ValueType Value )
 			break;
 		}
 	}
-	
+	/*
 	prescale = GlobalSystemClock / locChannelTickFreq;
 	
 	for(i=2;;i*=2)
@@ -445,7 +446,7 @@ void Gpt_StartTimer( Gpt_ChannelType Channel, Gpt_ValueType Value )
 			}
 			break;
 		}
-	}
+	}*/
 	/* adding the value deppending on the freq required */
 	GPTMTAILR(gptBaseAddress) = Value * prescale;
 	
@@ -468,6 +469,26 @@ void Gpt_StopTimer( Gpt_ChannelType Channel )
 	gptBaseAddress = Gpt_BaseAddress[Channel];
 	
 	GPTMCTL(gptBaseAddress) &= (~(1<<TAEN));
+}
+
+
+/******************************************************************************
+ * \Syntax          : void GPT_Attach(GPT_Notification CallBack,GPT_ValueType Value)
+ * \Description     : This Function is used to make user only attach the callback function + Value of time in milliseconds 
+ * 						if he wants to work with only one timer in his application
+ *
+ * \Sync\Async      : Synchronous
+ * \Reentrancy      : Non Reentrant
+ * \Parameters (in) : CallBack >> Callback Function that will be excuted when Timer interrupt is activated
+ * 					  ValueinMs	>> Value of Desired time to pass in milliseconds
+ * \Parameters (out): None
+ * \Return value:   : None
+ *******************************************************************************/
+void GPT_Attach(GptNotification Copy_GPTCallBack,Gpt_ValueType Copy_GPTValueinMs)
+{
+	
+	Gpt_EnableNotification(GPT_16_32_BIT_TIMER1);
+ 	Gpt_StartTimer(GPT_16_32_BIT_TIMER1,Copy_GPTValueinMs);
 }
 
 
