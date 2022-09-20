@@ -16,17 +16,13 @@ int main(void)
 	uint32 OnTime=5000;
 	uint32 OffTime=3000;
 	uint8 OnFlag=1;
-	IntCrtl_Init();
-	Mcu_Init(McuConfig);
-	Mcu_InitClock(1);
-	Mcu_Init(McuConfig);
 	Port_Init(Port_Config);
 	Systick_Off();
 		/*set period to trigger an interrupt every 1 second*/
 		Systick_SetPeriod(1000);
 		/*Light up the Led*/
 		Dio_WriteChannel(Channel_B7,STD_HIGH);
-		channelLevel = Dio_ReadChannel(Channel_B7);
+		channelLevel = Dio_ReadChannel(Port_Pin_B1);
 		/*start timer*/
 		Systick_Enable();
 	
@@ -41,7 +37,6 @@ int main(void)
 			Tick=0;
 			OnFlag=1;
 		}
-
 	}
 	return E_OK;
 }

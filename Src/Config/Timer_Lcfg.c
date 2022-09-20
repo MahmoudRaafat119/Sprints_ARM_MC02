@@ -32,7 +32,7 @@ void Gpt_NotificationFn(void);
 const Gpt_ConfigType Gpt_Config[GPT_ACTIVATED_CHANNELS_SIZE] =
 {
 	/* channel										channelTickFreq					channelTickMaxValue					channelMode								gptNotification */
-	{GPT_16_32_BIT_TIMER0,				500,										0xFF,												GPT_CH_MODE_ONESHOT,			Gpt_NotificationFn},
+	{GPT_16_32_BIT_TIMER1,				500,										0xFF,												GPT_CH_MODE_ONESHOT,			Gpt_NotificationFn},
 	{GPT_32_64_BIT_WIDE_TIMER1,		1000,						 				0xFFFF,											GPT_CH_MODE_CONTINUOUS,   0}
 };
 
